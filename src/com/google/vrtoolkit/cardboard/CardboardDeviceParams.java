@@ -5,6 +5,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.util.Log;
 import java.util.List;
+import java.util.Set;
 
 public class CardboardDeviceParams {
 	private static final String TAG = "CardboardDeviceParams";
@@ -18,6 +19,15 @@ public class CardboardDeviceParams {
 	private static final float DEFAULT_EYE_TO_LENS_DISTANCE = 0.011F;
 	private static final float DEFAULT_VISIBLE_VIEWPORT_MAX_SIZE = 0.06F;
 	private static final float DEFAULT_FOV_Y = 65.0F;
+	
+	private static final String KEY_INTERPUPILLARY_DISTANCE = "interpupillary_distance";
+	private static final String KEY_VERTICAL_DISTANCE_TO_LENS_CENTER = "vertical_distance_to_lens_center";
+	private static final String KEY_LENS_DIAMETER = "lens_diameter";
+	private static final String KEY_SCREEN_TO_LENS_DISTANCE = "screen_to_lens_distance";
+	private static final String KEY_EYE_TO_LENS_DISTANCE = "eye_to_lens_distance";
+	private static final String KEY_VISIBLE_VIEWPORT_SIZE = "visible_viewport_size";
+	private static final String KEY_FOV_Y = "fov_y";
+	
 	private NdefMessage mNfcTagContents;
 	private String mVendor;
 	private String mModel;
@@ -215,6 +225,22 @@ public class CardboardDeviceParams {
 		this.mVendor = uri.getHost();
 		this.mModel = ((String) segments.get(0));
 		this.mVersion = ((String) segments.get(1));
+		
+		Set<String> parameters = uri.getQueryParameterNames();
+		if (parameters.contains(KEY_INTERPUPILLARY_DISTANCE))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_INTERPUPILLARY_DISTANCE));
+		if (parameters.contains(KEY_VERTICAL_DISTANCE_TO_LENS_CENTER))
+			this.mVerticalDistanceToLensCenter = Float.parseFloat(uri.getQueryParameter(KEY_VERTICAL_DISTANCE_TO_LENS_CENTER));
+		if (parameters.contains(KEY_LENS_DIAMETER))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_LENS_DIAMETER));
+		if (parameters.contains(KEY_SCREEN_TO_LENS_DISTANCE))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_SCREEN_TO_LENS_DISTANCE));
+		if (parameters.contains(KEY_EYE_TO_LENS_DISTANCE))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_EYE_TO_LENS_DISTANCE));
+		if (parameters.contains(KEY_VISIBLE_VIEWPORT_SIZE))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_VISIBLE_VIEWPORT_SIZE));
+		if (parameters.contains(KEY_FOV_Y))
+			this.mInterpupillaryDistance = Float.parseFloat(uri.getQueryParameter(KEY_FOV_Y));
 
 		return true;
 	}
